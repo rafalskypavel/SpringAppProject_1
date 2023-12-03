@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Создание нового пользователя</title>
+    <style>
+        /* CSS стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        .person-link {
+            color: red;
+            text-decoration: none;
+            margin-bottom: 5px;
+            display: block;
+            transition: color 0.3s ease-in-out;
+        }
+        .person-link:hover {
+            color: darkred;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Регистрация</h1>
+    <form th:method="POST" th:action="@{/people}" th:object="${person}">
+        <label for="fullName">Введите ФИО: </label>
+        <input type="text" th:field="*{fullName}" id="fullName"/>
+        <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full Name Error</div>
+        <br/>
+        <label for="yearOfBirth">Введите год рождения: </label>
+        <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
+        <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error</div>
+        <br/>
+        <input type="submit" value="Создать!"/>
+    </form>
+    <br/>
+
+    <button onclick="goBack()" class="back-button">Назад</button>
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+    </script>
+
+</div>
+
+
+</body>
+</html>

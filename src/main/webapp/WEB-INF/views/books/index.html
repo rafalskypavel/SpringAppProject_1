@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Стили для ссылок на книги */
+        .book-link {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .book-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для кнопок */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+       class="book-link">book</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/spring-app/books/new" class="btn">Добавить книгу</a>
+<br/>
+
+<a href="/spring-app/people" class="btn">Посмотреть список пользователей</a>
+
+<script>
+    // Добавим интерактивность при наведении на ссылки
+    const bookLinks = document.querySelectorAll('.book-link');
+    bookLinks.forEach(link => {
+        link.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#f0f0f0';
+        });
+        link.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#fff';
+        });
+    });
+</script>
+
+</body>
+</html>

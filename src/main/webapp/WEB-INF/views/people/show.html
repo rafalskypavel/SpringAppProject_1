@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Show</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключаем внешний CSS файл -->
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Информация</h1>
+
+    <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">VALUE</p>
+
+    <div th:if="${books.isEmpty()}">
+        <p>Человек пока не взял ни одной книги</p>
+        <hr/>
+    </div>
+
+    <div th:if="${!books.isEmpty()}">
+        <hr/>
+        <b>Книги:</b>
+        <br/>
+        <table th:each="book : ${books}">
+            <tr th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
+        </table>
+        <hr/>
+    </div>
+
+    <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+        <input type="submit" value="Редактировать"/>
+    </form>
+    <br/>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="Удалить"/>
+    </form>
+    <br/>
+
+</div>
+
+<button onclick="goBack()" class="back-button">Назад</button>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>
